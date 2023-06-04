@@ -10,11 +10,16 @@ const postWeatherData = async (req, res) => {
         process.env.API_KEY
     );
     let data = await result.json();
-    let weatherData = new WeatherSchema({
+    if(data.cod===200)
+      {
+   
+
+      let weatherData = new WeatherSchema({
       data,
     });
     // save weatherData details in mongodb
     await weatherData.save();
+        }
     res.status(200).send(data);
   } catch (err) {
     res.status(400).send(err);
